@@ -1,8 +1,8 @@
-import { Login } from "@components/pages";
+import { Register } from "@components/pages";
 
 const page: React.FC = () => {
     return (
-        <Login />
+        <Register />
     );
 };
 
