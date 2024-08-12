@@ -24,6 +24,7 @@ const Login: React.FC = () => {
     const {
         handleSubmit,
         register,
+        setError,
         formState: { errors, isSubmitting },
     } = useForm<TLogin>({
         resolver: zodResolver(loginSchema),

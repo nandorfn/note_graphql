@@ -17,3 +17,12 @@ export const registerSchema = z.object({
     path: ["confirmPassword"],
   });
 export type TRegister = z.infer<typeof registerSchema>;
+
+export const tokenSchema = z.object({
+  username: z.string(),
+  email: z.string(),
+  id: z.number(),
+  iat: z.number(),
+  exp: z.number(),
+});
+export type JwtSchema = z.infer<typeof tokenSchema>;

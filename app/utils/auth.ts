@@ -1,7 +1,19 @@
 let bcrypt = require("bcryptjs");
 import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { TUser } from "./types";
+import { JwtSchema } from "./schemas";
+
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
+export const getJwtSecretKey = () => {
+  const secret = process.env.JWT_SECRET_KEY;
+  if (!secret || secret.length === 0) {
+    throw new Error("The environment variable JWT_SECRET_KEY is not set");
+  }
+
+  return secret;
+};
 
 export const hashPass = async (unHashPass: string) => {
   const salt = bcrypt.genSaltSync(10);
@@ -23,8 +35,6 @@ export const comparePassword = async ({
 }
 
 export const applyJWT = async (user: TUser) => {
-  const JWT_SECRET = process.env.JWT_SECRET_KEY;
-  console.log(JWT_SECRET);
   if (!JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined");
   }
@@ -45,4 +55,14 @@ export const applyJWT = async (user: TUser) => {
   });
 
   return token;
+};
+
+export const verifyAuth = async (token: string) => {
+  const verified = await jwtVerify(token, new TextEncoder().encode(getJwtSecretKey()));
+
+  if (!verified) {
+    return undefined;
+  } else {
+    return verified.payload as JwtSchema;
+  }
 };
