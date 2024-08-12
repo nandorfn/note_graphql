@@ -105,3 +105,14 @@ a {
     color-scheme: dark;
   }
 }
+
+.link-btn {
+  background-color: #ffffff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.3rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.link-btn:hover {
+  background-color: #e4e4e4;
+}

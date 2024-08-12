@@ -26,3 +26,9 @@ export const tokenSchema = z.object({
   exp: z.number(),
 });
 export type JwtSchema = z.infer<typeof tokenSchema>;
+
+export const noteSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  body: z.string(),
+});
+export type TNote = z.infer<typeof noteSchema>;
