@@ -3,7 +3,10 @@ import { NoteEditor } from "@components/organisms";
 const page: React.FC = () => {
     return (
         <>
-          <NoteEditor isCreate />
+          <NoteEditor isCreate defaultValue={{
+            title: '',
+            body: '',
+          }} />
         </>
     );
 };
