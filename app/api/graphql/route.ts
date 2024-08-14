@@ -3,7 +3,6 @@ import { ApolloServer } from '@apollo/server';
 import { resolvers, typeDefs } from './schema';
 import { NextRequest } from 'next/server';
 
-
 const server = new ApolloServer({
   resolvers,
   typeDefs,
@@ -16,8 +15,8 @@ const handler = startServerAndCreateNextHandler(server, {
     return {
       cookies,
       req,
-    };
-  },
+    } as any;
+  } 
 });
 
 export { handler as GET, handler as POST };
