@@ -14,11 +14,15 @@ class User extends BaseModel<UserAttributes> {
   protected tableName = 'users';
 
   public async getByEmail(email: string): Promise<UserAttributes | null> {
-    const result = await pool.query(
-      `SELECT * FROM ${this.tableName} WHERE email = $1`,
-      [email]
-    );
-    return result.rows[0] || null;
+    try {
+      const result = await pool.query(
+        `SELECT * FROM ${this.tableName} WHERE email = $1`,
+        [email]
+      );
+      return result.rows[0] || null;
+    } catch (error) { 
+      throw new Error("Failed to get user data");
+    }
   }
 }
 
