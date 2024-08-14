@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+// import { Pool } from 'pg';
 
 // export const pool = new Pool({
 //   user: process.env.DB_USER,
@@ -8,6 +8,10 @@ import { Pool } from 'pg';
 //   port: process.env.DB_PORT as number | undefined,
 // });
 
+// app/actions.ts
+import { Pool } from "@neondatabase/serverless";
+
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
+
