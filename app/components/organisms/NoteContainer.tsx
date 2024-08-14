@@ -5,6 +5,7 @@ import { Card, CardBody, CardHeader, Center, Grid, Text } from "@chakra-ui/react
 import { NOTE_QUERY } from "@services/query";
 import ErrorHandler from "./ErrorHandler";
 import { useRouter } from "next/navigation";
+import { TNote } from "@utils/types";
 
 const NoteContainer: React.FC = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const NoteContainer: React.FC = () => {
         maxW={"4xl"}
         p={4}
       >
-        {notes?.length > 0 && notes?.map((note: any) => (
+        {notes?.length > 0 && notes?.map((note: TNote) => (
           <Card className="card-border" cursor={"pointer"} onClick={() => router.push(note?.id)} key={note.id}>
             <CardHeader>
               <Text noOfLines={2} fontSize="lg" fontWeight="bold">{note.title}</Text>

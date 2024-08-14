@@ -10,7 +10,6 @@ export const NOTE_QUERY = gql`
           title
           body
           createdAt
-          updatedAt
         }
       }
       message
