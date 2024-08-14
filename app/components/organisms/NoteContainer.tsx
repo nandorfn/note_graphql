@@ -1,16 +1,15 @@
 "use client";
 
 import { useQuery } from "@apollo/client";
-import { Card, CardBody, CardHeader, Center, Flex, Grid, Text } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, Center, Grid, Text } from "@chakra-ui/react";
 import { NOTE_QUERY } from "@services/query";
 import ErrorHandler from "./ErrorHandler";
+import { useRouter } from "next/navigation";
 
 const NoteContainer: React.FC = () => {
+  const router = useRouter();
   const { data, loading, error } = useQuery(NOTE_QUERY);
-
-  // Menyesuaikan akses data
   const notes = data?.notes?.data?.notes;
-  console.log(notes);
 
   return (
     <>
@@ -29,15 +28,15 @@ const NoteContainer: React.FC = () => {
         p={4}
       >
         {notes?.length > 0 && notes?.map((note: any) => (
-          <Card key={note.id}>
+          <Card className="card-border" cursor={"pointer"} onClick={() => router.push(note?.id)} key={note.id}>
             <CardHeader>
-              <Text fontSize="lg" fontWeight="bold">{note.title}</Text>
+              <Text noOfLines={2} fontSize="lg" fontWeight="bold">{note.title}</Text>
+              <Text fontSize="xs" color="gray.500">
+                {note.createdAt}
+              </Text>
             </CardHeader>
             <CardBody>
-              <Text>{note.body}</Text>
-              <Text fontSize="sm" color="gray.500">
-                {`Created at: ${note.createdAt}`}
-              </Text>
+              <Text noOfLines={3}>{note.body}</Text>
             </CardBody>
           </Card>
         ))

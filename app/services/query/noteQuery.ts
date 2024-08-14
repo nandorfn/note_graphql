@@ -18,3 +18,21 @@ export const NOTE_QUERY = gql`
     }
   }
 `;
+
+export const GET_NOTE_BY_ID = gql`
+  query GetNoteById($id: String!) {
+    note(id: $id) {
+      success
+      data {
+        note {
+          id
+          title
+          body
+          createdAt
+        }
+      }
+      message
+      error
+    }
+  }
+`;

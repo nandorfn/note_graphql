@@ -1,3 +1,4 @@
+import { pool } from "@utils/db";
 import BaseModel from "./baseModel";
 
 interface NoteAttributes {
@@ -10,6 +11,11 @@ interface NoteAttributes {
 
 class Note extends BaseModel<NoteAttributes> {
   protected tableName = 'notes';
+
+  public async getAllByUser(userId: number): Promise<NoteAttributes[]> {
+    const result = await pool.query(`SELECT id, title, body, "createdAt" FROM ${this.tableName} WHERE user_id = ${userId}`);
+    return result.rows;
+  }
 }
 
 export default Note;

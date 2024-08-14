@@ -1,9 +1,11 @@
 import { LOGIN_MUTATION } from "./loginMutation";
-import { NOTE_MUTATION } from "./noteMutation";
+import { NOTE_CREATE_MUTATION, NOTE_DELETE_MUTATION, NOTE_UPDATE_MUTATION } from "./noteMutation";
 import { REGISTER_MUTATION } from "./registerMutation";
 
 export {
   REGISTER_MUTATION,
-  NOTE_MUTATION,
+  NOTE_CREATE_MUTATION,
+  NOTE_DELETE_MUTATION,
+  NOTE_UPDATE_MUTATION,
   LOGIN_MUTATION,
 }

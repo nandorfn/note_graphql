@@ -31,7 +31,7 @@ const ErrorHandler = ({ data, loading, error }: TErrorHandler) => {
     )
   }
   
-  if (data.length < 1) {
+  if (data?.length < 1) {
     return (
       <Text mt={"16%"}>Your data is empty!</Text>
     )

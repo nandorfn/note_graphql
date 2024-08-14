@@ -33,7 +33,8 @@ const noteTypeDefs = gql`
 
   type Mutation {
     create(input: NoteEditor!): ApiNoteResponse
-    update(input: NoteEditor!): ApiNoteResponse
+    update(id: String!, input: NoteEditor!): ApiNoteResponse
+    delete(id: String!): ApiNoteResponse
   }
 `
 

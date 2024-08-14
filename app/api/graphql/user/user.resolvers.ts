@@ -27,7 +27,6 @@ const userResolvers: Resolvers = {
 
   Mutation: {
     register: async (_, { input }) => {
-      console.log('register');
       const { username, email, password } = input;
       try {
         const existingUser = await userInstance.getByEmail(email);
@@ -54,7 +53,6 @@ const userResolvers: Resolvers = {
       }
     },
     login: async (_, { input }) => {
-      console.log('login');
       const { email, password } = input;
       try {
         const user = await userInstance.getByEmail(email);
