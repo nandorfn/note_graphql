@@ -1,9 +1,8 @@
-import { NoteEditor } from "@components/organisms";
 
 const page: React.FC = () => {
     return (
         <>
-          <NoteEditor isCreate />
+        <p>Test</p>
         </>
     );
 };

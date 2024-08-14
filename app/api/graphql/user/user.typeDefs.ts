@@ -1,6 +1,12 @@
 import { gql } from 'graphql-tag';
 
 const userTypeDefs = gql`
+  interface ApiResponse {
+    success: Boolean!
+    message: String
+    error: String
+  }
+
   type User {
     id: ID!
     username: String!
@@ -23,7 +29,7 @@ const userTypeDefs = gql`
     user: User!
   }
 
-  type ApiResponse {
+  type ApiUserResponse {
     success: Boolean!
     data: AuthPayload
     message: String
@@ -36,8 +42,8 @@ const userTypeDefs = gql`
   }
     
   type Mutation {
-    register(input: RegisterInput!): ApiResponse
-    login(input: LoginInput!): ApiResponse
+    register(input: RegisterInput!): ApiUserResponse
+    login(input: LoginInput!): ApiUserResponse
   }
 `;
 

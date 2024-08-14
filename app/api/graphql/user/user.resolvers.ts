@@ -3,11 +3,12 @@ import User from "@models/user";
 import { applyJWT, comparePassword, hashPass } from "@utils/auth";
 import ApiResponseBuilder from "@utils/http";
 
+const userInstance = new User();
 const userResolvers: Resolvers = {
   Query: {
     user: async (_, { id }) => {
       try {
-        const user = await User.getById(id);
+        const user = await userInstance.getById(id);
         if (!user) {
           return new ApiResponseBuilder()
             .setError('USER_NOT_FOUND', 'User not found')
@@ -26,10 +27,10 @@ const userResolvers: Resolvers = {
 
   Mutation: {
     register: async (_, { input }) => {
+      console.log('register');
       const { username, email, password } = input;
       try {
-        const existingUser = await User.getByEmail(email);
-        console.log('existingUser', existingUser)
+        const existingUser = await userInstance.getByEmail(email);
         if (existingUser) {
           return new ApiResponseBuilder()
             .setError('EMAIL_FIELD', 'Email already registered')
@@ -37,26 +38,26 @@ const userResolvers: Resolvers = {
         }
 
         const { hashedPassword } = await hashPass(password);
-        const newUser = await User.create({
+        const newUser = await userInstance.create({
           username,
           email,
           password: hashedPassword,
         });
 
         return new ApiResponseBuilder()
-        .setSuccess({ user: newUser})
-        .build();
+          .setSuccess({ user: newUser })
+          .build();
       } catch (error) {
-        console.log(error);
         return new ApiResponseBuilder()
           .setError('INTERNAL_SERVER_ERROR', 'Failed to register user')
           .build();
       }
     },
     login: async (_, { input }) => {
+      console.log('login');
       const { email, password } = input;
       try {
-        const user = await User.getByEmail(email);
+        const user = await userInstance.getByEmail(email);
         if (!user) {
           return new ApiResponseBuilder()
             .setError('USER_NOT_FOUND', 'User not found')

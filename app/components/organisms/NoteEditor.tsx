@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import { noteSchema, TNote } from "@utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@apollo/client";
+import { NOTE_MUTATION } from "@services/mutations";
 
-const NoteEditor: React.FC = () => {
+const NoteEditor = ({ isCreate = false }: { isCreate: boolean }) => {
   const router = useRouter();
   const {
     handleSubmit,
@@ -16,8 +18,20 @@ const NoteEditor: React.FC = () => {
     resolver: zodResolver(noteSchema),
   });
 
+  const [createNote, { loading: createLoading }] = useMutation(NOTE_MUTATION)
+
   const onSubmit = async (formData: TNote) => {
-    console.log(formData);
+    if (isCreate) {
+      await createNote({
+        variables: {
+          title: formData.title,
+          body: formData.body
+        }
+      })
+      .then((res) => {
+        console.log(res);
+      })
+    }
   };
 
   return (
@@ -65,7 +79,8 @@ const NoteEditor: React.FC = () => {
               <Flex direction={"column"} gap={4}>
                 <Button
                   colorScheme="teal"
-                  isLoading={isSubmitting}
+                  isLoading={isSubmitting || createLoading}
+                  isDisabled={createLoading}
                   type="submit"
                   size={"sm"}
                   >
@@ -74,6 +89,7 @@ const NoteEditor: React.FC = () => {
                 <Button
                   colorScheme="yellow"
                   isLoading={isSubmitting}
+                  isDisabled={createLoading}
                   type="button"
                   size={"sm"}
                 >
@@ -82,6 +98,7 @@ const NoteEditor: React.FC = () => {
                 <Button
                   colorScheme="red"
                   isLoading={isSubmitting}
+                  isDisabled={createLoading}
                   type="button"
                   size={"sm"}
                   >

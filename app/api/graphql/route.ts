@@ -1,6 +1,7 @@
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { ApolloServer } from '@apollo/server';
 import { resolvers, typeDefs } from './schema';
+import { NextRequest } from 'next/server';
 
 
 const server = new ApolloServer({
@@ -9,7 +10,14 @@ const server = new ApolloServer({
 });
 
 const handler = startServerAndCreateNextHandler(server, {
-  context: async req => ({ req }),
+  context: async (req: NextRequest) => {
+    const cookies = req.headers.get('cookie') || '';
+
+    return {
+      cookies,
+      req,
+    };
+  },
 });
 
 export { handler as GET, handler as POST };

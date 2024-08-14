@@ -66,3 +66,13 @@ export const verifyAuth = async (token: string) => {
     return verified.payload as JwtSchema;
   }
 };
+
+export const verifyCookie = async (cookie: string) => {
+  if (cookie) {
+    const cookies = cookie?.split(";");
+    const tokenString = cookies?.find(str => str.startsWith("token="));
+    const token = tokenString?.split("=")[1];
+    const verifiedToken = token && (await verifyAuth(token));
+    return verifiedToken;
+  }
+};

@@ -6,7 +6,7 @@ export const LOGIN_MUTATION = gql`
       email: $email,
       password: $password
     }) {
-    ... on ApiResponse {
+    ... on ApiUserResponse {
         success
         data {
           user {
