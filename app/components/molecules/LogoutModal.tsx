@@ -10,8 +10,9 @@ const LogoutModal = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    Cookies.remove('token', { path: "/"})
-    router.refresh();
+    Cookies.remove('token', { path: "/"});
+    window.location.reload();
+    // router.refresh();
   }
 
   return (
